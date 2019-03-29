@@ -1,3 +1,5 @@
+package Task_3;
+
 public class Orange_bad extends Fruit_bad {
 
     private float weight;
@@ -6,7 +8,7 @@ public class Orange_bad extends Fruit_bad {
         this.weight = 1.5f;
     }
 
-    public float getWeight() {
+    public float getMassa() {
         return weight;
     }
 }

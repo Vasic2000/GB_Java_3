@@ -1,5 +1,8 @@
 package Lesson_3;
 
+import jdk.nashorn.internal.scripts.JO;
+
+import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,8 +30,12 @@ public class Lesson_3 {
 
         readFrom_5_to_1_File(fileN, fileSum);
 
+//      Создать (если нет) файл на МНОГО страниц и читать по требованию
+        File fileBig = new File("src\\main\\java\\Lesson_3\\OutPut\\bigFile.txt");
+        if (!fileBig.exists())
+            createBigFile(fileBig);
 
-
+        read_1_Page(fileBig);
 
 
     }
@@ -75,6 +82,7 @@ public class Lesson_3 {
         }
     }
 
+
     public static void createFile100(File file) {
         File dir = new File("src\\main\\java\\Lesson_3\\OutPut");
 
@@ -113,6 +121,54 @@ public class Lesson_3 {
         }
     }
 
+
+    public static void createBigFile(File file) {
+        File dir = new File("src\\main\\java\\Lesson_3\\OutPut");
+
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+
+        dir.mkdirs();
+        try {
+            fw = new FileWriter(file);
+            bw = new BufferedWriter(fw);
+            StringBuilder sb = new StringBuilder();
+
+            file.createNewFile();
+
+            for(int j = 0; j < 1300; j++) {
+                for (int i = 0; i < 462; i++) {
+                    sb.append(i + " ");
+                    if (i % 10 == 0) sb.append("\n");
+                }
+                sb.append("\n" + "Page " + j + "\n");
+                while(sb.length() < 1799)
+                    sb.append(" ");
+                sb.append("\n");
+                bw.write(sb.toString());
+                sb.setLength(0);
+            }
+
+            bw.write(sb.toString());
+
+            bw.flush();
+            bw.close();
+            fw.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (fw != null) {
+                    fw.close();
+                }
+                if (bw != null) {
+                    bw.close();
+                }
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
 
     public static void readFromFile(File file) {
@@ -181,6 +237,29 @@ public class Lesson_3 {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static void read_1_Page(File file) {
+
+        String input = JOptionPane.showInputDialog("Какую страницу читаем?");
+        while (!isNumeric(input))
+            input = JOptionPane.showInputDialog("Какую страницу читаем?");
+        int page = Integer.parseInt(input);
+
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")){
+                raf.seek(1800*page);
+                for(int i = 0; i < 1800; i++)
+                    System.out.print((char) raf.read());
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+
+    }
+
+    public static boolean isNumeric(String str) {
+        return str.matches("^\\d*$");
     }
 }
 

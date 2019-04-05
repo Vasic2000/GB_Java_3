@@ -10,6 +10,9 @@ import java.util.Collections;
 public class Lesson_3 {
 
     public static void main(String[] args) {
+
+        long dd = System.currentTimeMillis();
+
 //      Создать (если нет) и вычитать файл ~50 байт
         File file = new File("src\\main\\java\\Lesson_3\\OutPut\\50bit.txt");
         if (!file.exists())
@@ -30,14 +33,14 @@ public class Lesson_3 {
 
         readFrom_5_to_1_File(fileN, fileSum);
 
-//      Создать (если нет) файл на МНОГО страниц и читать по требованию
+//      Создать (если нет) файл на 7000 по 1800 байт страниц и читать по требованию
         File fileBig = new File("src\\main\\java\\Lesson_3\\OutPut\\bigFile.txt");
         if (!fileBig.exists())
             createBigFile(fileBig);
 
         read_1_Page(fileBig);
 
-
+        System.out.println("Вся программа закончена за " + (System.currentTimeMillis() - dd) + " мСек");
     }
 
 
@@ -109,11 +112,11 @@ public class Lesson_3 {
             e.printStackTrace();
         } finally {
             try {
-                if (fw != null) {
-                    fw.close();
-                }
                 if (bw != null) {
                     bw.close();
+                }
+                if (fw != null) {
+                    fw.close();
                 }
             } catch (IOException e) {
                 e.printStackTrace();

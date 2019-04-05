@@ -136,8 +136,8 @@ public class Lesson_3 {
 
             file.createNewFile();
 
-            for(int j = 0; j < 1300; j++) {
-                for (int i = 0; i < 462; i++) {
+            for(int j = 0; j < 7000; j++) {
+               for (int i = 0; i < 462; i++) {
                     sb.append(i + " ");
                     if (i % 10 == 0) sb.append("\n");
                 }
@@ -241,22 +241,23 @@ public class Lesson_3 {
 
     public static void read_1_Page(File file) {
 
-        String input = JOptionPane.showInputDialog("Какую страницу читаем?");
+        String input = JOptionPane.showInputDialog(null, "Какую страницу читаем? (0...6999)", "", JOptionPane.QUESTION_MESSAGE);
         while (!isNumeric(input))
-            input = JOptionPane.showInputDialog("Какую страницу читаем?");
+            input = JOptionPane.showInputDialog(null, "Какую страницу читаем? (0...6999)", "", JOptionPane.QUESTION_MESSAGE);
         int page = Integer.parseInt(input);
 
-        try (RandomAccessFile raf = new RandomAccessFile(file, "r")){
+        try (RandomAccessFile raf = new RandomAccessFile(file, "r")) {
+            long t = System.currentTimeMillis();
                 raf.seek(1800*page);
                 for(int i = 0; i < 1800; i++)
                     System.out.print((char) raf.read());
+                System.out.println("Прочитано и напечатано за "+ (System.currentTimeMillis() - t) + " мСек");
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             } catch (IOException e) {
                 e.printStackTrace();
             }
-
-    }
+        }
 
     public static boolean isNumeric(String str) {
         return str.matches("^\\d*$");

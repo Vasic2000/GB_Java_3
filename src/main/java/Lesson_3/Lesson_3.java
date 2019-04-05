@@ -159,12 +159,9 @@ public class Lesson_3 {
             inp = new SequenceInputStream(Collections.enumeration(ali));
             fw = new FileWriter(fileTo);
             bw = new BufferedWriter(fw);
-
             int x;
-
             while ((x = inp.read()) != -1)
-                bw.write(inp.read());
-
+                bw.write((char) x);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         } catch (IOException e) {
@@ -187,6 +184,9 @@ public class Lesson_3 {
     }
 }
 
+
+
+// Примеры из занятия на память:
 //        File file1 = new File("123/testNewName.txt");
 //
 //        file.renameTo(file1);
@@ -200,8 +200,6 @@ public class Lesson_3 {
 //        for (String o: str) {
 //            System.out.println(o);
 //        }
-
-
 //        long t = System.currentTimeMillis();
 //        try(FileInputStream in = new FileInputStream("123/1.txt")) {
 //          //  byte[] arr = new byte[512];
@@ -218,7 +216,6 @@ public class Lesson_3 {
 //        }
 //
 //        System.out.println(System.currentTimeMillis() - t);
-
 //        String str = "Hello java and C#";
 //
 //        try (FileOutputStream fos = new FileOutputStream("123/1.txt")) {
@@ -230,7 +227,6 @@ public class Lesson_3 {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
 //       try (InputStreamReader isr = new InputStreamReader(new FileInputStream("123/1.txt"), "UTF-8")) {
 //
 //          int x;
@@ -244,7 +240,6 @@ public class Lesson_3 {
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
 //        FileReader fr = null;
 //        BufferedReader br = null;
 //        try {
@@ -272,8 +267,7 @@ public class Lesson_3 {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//        }
-
+//
 //        PipedInputStream in = null;
 //        PipedOutputStream out = null;
 //
@@ -306,8 +300,7 @@ public class Lesson_3 {
 //            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
-//        }
-
+//
 //        ArrayList<InputStream> ali = new ArrayList<>();
 //        try {
 //            ali.add(new FileInputStream("123/1.txt"));
@@ -338,14 +331,12 @@ public class Lesson_3 {
 //            } finally {
 //
 //            }
-
 //        Students s = new Students(1, "Bob1");
 //        Book book = new Book("book");
 //        s.book = book;
 //        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("stud.ser"));
 //        oos.writeObject(s);
 //        oos.close();
-
 //        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("stud.ser"));
 //        Students s2 = (Students)ois.readObject();
 //        ois.close();

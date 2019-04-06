@@ -14,7 +14,7 @@ public class Client {
     }
 
     public Client() throws IOException {
-        Students s = new Students(100, "Artem");
+        Player s = new Player(100, "Artem");
         Book book = new Book("Lucky wheel", "unknown author");
         s.book = book;
         socket = new Socket(IP_ADRESS, PORT);

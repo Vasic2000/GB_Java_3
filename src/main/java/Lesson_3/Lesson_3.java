@@ -412,14 +412,14 @@ public class Lesson_3 {
 //            } finally {
 //
 //            }
-//        Students s = new Students(1, "Bob1");
+//        Player s = new Player(1, "Bob1");
 //        Book book = new Book("book");
 //        s.book = book;
 //        ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("stud.ser"));
 //        oos.writeObject(s);
 //        oos.close();
 //        ObjectInputStream ois = new ObjectInputStream(new FileInputStream("stud.ser"));
-//        Students s2 = (Students)ois.readObject();
+//        Player s2 = (Player)ois.readObject();
 //        ois.close();
 //        s2.info();
 

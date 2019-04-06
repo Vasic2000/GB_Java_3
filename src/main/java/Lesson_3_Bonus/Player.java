@@ -1,29 +1,18 @@
 package Lesson_3_Bonus;
 
-import java.io.DataInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.net.ServerSocket;
-import java.net.Socket;
+import java.io.Serializable;
 
-public class Player {
+public class Player implements Serializable {
+    int id;
+    String name;
+    transient Book book;
 
-    public static void main(String[] args) throws IOException, ClassNotFoundException {
-        new Player();
+    public Player(int id, String name) {
+        this.id = id;
+        this.name = name;
     }
 
-    public Player() throws IOException, ClassNotFoundException {
-        ServerSocket server = new ServerSocket(8189);
-        Socket socket;
-        System.out.println("Сервер запущен!");
-        socket = server.accept();
-        System.out.println("Клиент " + socket.toString() + " подключился");
-
-        ObjectInputStream ois = new ObjectInputStream(new DataInputStream(socket.getInputStream()));
-        Students s2 = (Students) ois.readObject();
-        Book b2 = (Book) ois.readObject();
-        ois.close();
-        s2.info();
-        b2.info();
+    public void info() {
+        System.out.println(id + " " + name);
     }
 }

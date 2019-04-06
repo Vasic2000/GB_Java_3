@@ -6,13 +6,13 @@ import java.io.ObjectInputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class Server {
+public class Player {
 
     public static void main(String[] args) throws IOException, ClassNotFoundException {
-        new Server();
+        new Player();
     }
 
-    public Server() throws IOException, ClassNotFoundException {
+    public Player() throws IOException, ClassNotFoundException {
         ServerSocket server = new ServerSocket(8189);
         Socket socket;
         System.out.println("Сервер запущен!");

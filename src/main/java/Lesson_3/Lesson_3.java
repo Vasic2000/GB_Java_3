@@ -1,7 +1,5 @@
 package Lesson_3;
 
-import jdk.nashorn.internal.scripts.JO;
-
 import javax.swing.*;
 import java.io.*;
 import java.util.ArrayList;

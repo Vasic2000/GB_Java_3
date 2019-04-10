@@ -53,7 +53,7 @@ class Printer extends Thread {
     }
 
     private void printLine() {
-        System.out.print(letter);
+        System.out.println(letter);
         counter = (counter + 1) % PrinterController.THREADS_NUMBER;
         if (counter == 0){
             newLetter = "A";

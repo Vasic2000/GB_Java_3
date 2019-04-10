@@ -1,24 +1,23 @@
 package Lesson_4;
 
 public class ABC_Threads extends Thread {
-    public static Object monitor = new Object();
+    public static String[] monitor = new String[]{"A", "B", "C"};
 
     public static void main(String[] args) {
-        final ABC_Threads e1 = new ABC_Threads();
 
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (int i = 0; i < 5; i++) {
-                    System.out.println("A");
-                    synchronized (monitor) {
+                    synchronized (monitor[0]) {
                         try {
-                            monitor.wait(200);
+                            System.out.println(monitor[0]);
+                            monitor[0].wait();
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        monitor.notify();
+                        monitor[1].notify();
                     }
                 }
                 System.out.println("End_A");
@@ -29,15 +28,15 @@ public class ABC_Threads extends Thread {
             @Override
             public void run() {
                 for (int i = 0; i < 5; i++) {
-                    System.out.println("B");
-                    synchronized (monitor) {
+                    synchronized (monitor[1]) {
                         try {
-                            monitor.wait(200);
+                            System.out.println(monitor[1]);
+                            monitor[1].wait();
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        monitor.notify();
+                        monitor[2].notify();
                     }
                 }
                 System.out.println("End_B");
@@ -48,15 +47,15 @@ public class ABC_Threads extends Thread {
             @Override
             public void run() {
                 for (int i = 0; i < 5; i++) {
-                    System.out.println("C");
-                    synchronized (monitor) {
+                    synchronized (monitor[2]) {
                         try {
-                            monitor.wait(200);
+                            System.out.println(monitor[2]);
+                            monitor[2].wait();
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
-                        monitor.notify();
+                        monitor[0].notify();
                     }
                 }
                 System.out.println("End_C");

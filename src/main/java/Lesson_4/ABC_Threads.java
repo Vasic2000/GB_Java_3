@@ -13,13 +13,13 @@ public class ABC_Threads extends Thread {
                     System.out.println("A");
                     synchronized (monitor) {
                         try {
-                            monitor.wait();
+                            monitor.wait(200);
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        monitor.notify();
                     }
-                    monitor.notify();
                 }
                 System.out.println("End_A");
             }
@@ -32,13 +32,13 @@ public class ABC_Threads extends Thread {
                     System.out.println("B");
                     synchronized (monitor) {
                         try {
-                            monitor.wait();
+                            monitor.wait(200);
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        monitor.notify();
                     }
-                    notify();
                 }
                 System.out.println("End_B");
             }
@@ -51,11 +51,12 @@ public class ABC_Threads extends Thread {
                     System.out.println("C");
                     synchronized (monitor) {
                         try {
-                            monitor.wait();
+                            monitor.wait(200);
                             Thread.sleep(250);
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
+                        monitor.notify();
                     }
                 }
                 System.out.println("End_C");

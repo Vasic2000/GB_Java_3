@@ -23,17 +23,18 @@ public class ABC {
         @Override
         public void run() {
             for (int i = 0; i < 5; i++) {
-                while (!this.newLetter.equals(newLetter))
+                synchronized (newLetter) {
                     try {
                         System.out.println(newLetter);
-                        wait();
+                        newLetter.wait();
                         Thread.sleep(250);
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                notify();
+                    newLetter.notify();
+                    System.out.println("End_" + newLetter);
+                }
             }
-            System.out.println("End_" + newLetter);
         }
     }
 }

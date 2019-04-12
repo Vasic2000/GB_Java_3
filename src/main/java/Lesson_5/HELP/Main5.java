@@ -191,36 +191,35 @@ public class Main5 {
 //        System.out.println("START!");
 
 
-        final CyclicBarrier cb = new CyclicBarrier(5);
-
-        for (int i = 0; i < 8; i++) {
-            final int w = i;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-//                    System.out.println(w);
-                    int timer = 0;
-                    try {
-                        timer = (int) (Math.random() * 1000);
-                        System.out.println(w + " подготовка " + timer + " мс");
-                        Thread.sleep(timer);
-                        System.out.println(w + " готов " + timer + " мс потратил!");
-                        System.out.println(timer);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    //  System.out.println(w);
-                    try {
-                        cb.await();
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    } catch (BrokenBarrierException e) {
-                        e.printStackTrace();
-                    }
-                    System.out.println("END");
-                }
-            }).start();
-        }
+//        final CyclicBarrier cb = new CyclicBarrier(5);
+//
+//        for (int i = 0; i < 8; i++) {
+//            final int w = i;
+//            new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+////                    System.out.println(w);
+//                    int timer = 0;
+//                    try {
+//                        timer = (int) (Math.random() * 1000);
+//                        System.out.println(w + " подготовка " + timer + " мс");
+//                        Thread.sleep(timer);
+//                        System.out.println(w + " готов " + timer + " мс потратил!");
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    }
+//                    //  System.out.println(w);
+//                    try {
+//                        cb.await();
+//                    } catch (InterruptedException e) {
+//                        e.printStackTrace();
+//                    } catch (BrokenBarrierException e) {
+//                        e.printStackTrace();
+//                    }
+//                    System.out.println("END");
+//                }
+//            }).start();
+//        }
 
 //        final ReentrantLock r1 = new ReentrantLock();
 //

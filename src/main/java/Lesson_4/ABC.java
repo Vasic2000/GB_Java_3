@@ -1,6 +1,7 @@
 package Lesson_4;
 
 public class ABC {
+    public static String start = "A";
 
     public static void main(String[] args) {
         ABC abc = new ABC();
@@ -23,16 +24,19 @@ public class ABC {
         @Override
         public void run() {
             for (int i = 0; i < 5; i++) {
-                synchronized (newLetter) {
-                    try {
-                        System.out.println(newLetter);
-                        newLetter.wait();
-                        Thread.sleep(250);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
+                synchronized (start) {
+                    while (!newLetter.equals(start)) {
+                        try {
+                            System.out.println(newLetter);
+                            start = newLetter;
+                            start.wait();
+                            Thread.sleep(250);
+                            start.notifyAll();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println("End_" + newLetter);
                     }
-                    newLetter.notify();
-                    System.out.println("End_" + newLetter);
                 }
             }
         }

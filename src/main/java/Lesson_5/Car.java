@@ -4,7 +4,6 @@ import java.util.concurrent.BrokenBarrierException;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class Car implements Runnable {
     private static int CARS_COUNT;
@@ -16,8 +15,8 @@ public class Car implements Runnable {
     private String name;
     private final CyclicBarrier cb;
     private final Semaphore smp;
-    private final ReentrantLock r1;
     private AtomicInteger ai;
+    private int place;
 
 
     public String getName() {
@@ -27,14 +26,13 @@ public class Car implements Runnable {
         return speed;
     }
 
-    public Car(Race race, int speed, CyclicBarrier cyclicBarrier, Semaphore smp, ReentrantLock r1, AtomicInteger ai) {
+    public Car(Race race, int speed, CyclicBarrier cyclicBarrier, Semaphore smp, AtomicInteger ai) {
         this.race = race;
         this.speed = speed;
         CARS_COUNT++;
         this.name = "Участник #" + CARS_COUNT;
         this.cb = cyclicBarrier;
         this.smp = smp;
-        this.r1 = r1;
         this.ai = ai;
     }
     @Override
@@ -64,17 +62,21 @@ public class Car implements Runnable {
         for (int i = 0; i < race.getStages().size(); i++)
                 race.getStages().get(i).go(this, smp);
         try {
-            r1.lock();
-                    ai.incrementAndGet();
-            r1.unlock();
+            place = ai.incrementAndGet();
             cb.await();
+// Опять костыль, чтобы машинка не написала о своём результате раньше, чем main скажит, что гонка окончена
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
 
-            if(ai.equals(1)) {
+            if(place == 1) {
                 ai.incrementAndGet();
                 System.out.println(this.name + " победитель");
             } else {
                 ai.incrementAndGet();
-                System.out.println(this.name + " пришёл " + ai + "-м");
+                System.out.println(this.name + " пришёл " + place + "-м");
             }
 
         } catch (InterruptedException e) {

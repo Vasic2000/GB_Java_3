@@ -1,6 +1,7 @@
 package Lesson_5;
 
 import java.util.concurrent.BrokenBarrierException;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.CyclicBarrier;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -17,6 +18,7 @@ public class Car implements Runnable {
     private final Semaphore smp;
     private AtomicInteger ai;
     private int place;
+    ConcurrentHashMap<Integer, String> result;
 
 
     public String getName() {
@@ -26,7 +28,7 @@ public class Car implements Runnable {
         return speed;
     }
 
-    public Car(Race race, int speed, CyclicBarrier cyclicBarrier, Semaphore smp, AtomicInteger ai) {
+    public Car(Race race, int speed, CyclicBarrier cyclicBarrier, Semaphore smp, AtomicInteger ai, ConcurrentHashMap<Integer, String> result) {
         this.race = race;
         this.speed = speed;
         CARS_COUNT++;
@@ -34,6 +36,7 @@ public class Car implements Runnable {
         this.cb = cyclicBarrier;
         this.smp = smp;
         this.ai = ai;
+        this.result = result;
     }
     @Override
     public void run() {
@@ -63,22 +66,8 @@ public class Car implements Runnable {
                 race.getStages().get(i).go(this, smp);
         try {
             place = ai.incrementAndGet();
+            result.put(place, this.getName());
             cb.await();
-// Опять костыль, чтобы машинка не написала о своём результате раньше, чем main скажит, что гонка окончена
-            try {
-                Thread.sleep(10);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-
-            if(place == 1) {
-                ai.incrementAndGet();
-                System.out.println(this.name + " победитель");
-            } else {
-                ai.incrementAndGet();
-                System.out.println(this.name + " пришёл " + place + "-м");
-            }
-
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {

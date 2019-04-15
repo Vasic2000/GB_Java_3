@@ -24,6 +24,7 @@ public class Car implements Runnable {
     public String getName() {
         return name;
     }
+
     public int getSpeed() {
         return speed;
     }
@@ -50,20 +51,15 @@ public class Car implements Runnable {
 
         try {
             cb.await();
+            cb.await();
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-// Костыль, все ждут 0,01 сек, чтобы main успел махнуть флажком до старта машинок
-        try {
-            Thread.sleep(10);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        }
 
         for (int i = 0; i < race.getStages().size(); i++)
-                race.getStages().get(i).go(this, smp);
+                race.getStages().get(i).go(this);
         try {
             place = ai.incrementAndGet();
             result.put(place, this.getName());

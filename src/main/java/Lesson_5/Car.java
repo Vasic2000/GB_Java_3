@@ -57,7 +57,6 @@ public class Car implements Runnable {
         } catch (BrokenBarrierException e) {
             e.printStackTrace();
         }
-
         for (int i = 0; i < race.getStages().size(); i++)
                 race.getStages().get(i).go(this);
         try {
@@ -71,4 +70,3 @@ public class Car implements Runnable {
         }
     }
 }
-
